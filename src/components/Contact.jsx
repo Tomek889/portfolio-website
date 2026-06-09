@@ -59,23 +59,25 @@ export default function Contact() {
       className="flex items-center justify-center px-4 py-20"
     >
       <motion.div
-        className="max-w-3xl mx-auto w-full lg:mb-[6rem] flex flex-col"
+        className="max-w-4xl mx-auto w-full lg:mb-[6rem] flex flex-col" // Zwiększyłem max-w do 4xl, żeby 3 karty obok siebie miały więcej oddechu przy lewym nagłówku
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        <motion.div variants={itemVariants} className="text-center mb-16">
+        {/* POPRAWIONY NAGŁÓWEK: Usunięto text-center i mx-auto dla kreski */}
+        <motion.div variants={itemVariants} className="mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-2">Let's Connect</h2>
-          <div className="line-accent mx-auto w-16 h-1"></div>
+          <div className="line-accent w-16 h-1"></div>
           <p className="text-zinc-400 mt-4">
             Interested in collaborating? Reach out to me!
           </p>
         </motion.div>
 
+        {/* Sam układ kafelków pozostaje wycentrowany wewnętrznie, co przy 3 kolumnach wygląda bardzo pro i symetrycznie */}
         <motion.div
           variants={itemVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
         >
           {socialLinks.map((social) => {
             const Icon = social.icon;
@@ -94,14 +96,14 @@ export default function Contact() {
                   className="flex flex-col items-center justify-center"
                 >
                   <Icon
-                    size={48}
+                    size={44}
                     className="mb-4 text-accent group-hover:text-white transition-colors duration-300"
                   />
                   <h3 className="text-lg font-semibold text-white mb-2">
                     {social.label}
                   </h3>
                 </a>
-                <span className="text-sm text-zinc-400 group-hover:text-zinc-200 transition-colors select-all cursor-text mt-2 block">
+                <span className="text-sm text-zinc-400 group-hover:text-zinc-200 transition-colors select-all cursor-text mt-2 block font-mono text-center break-all">
                   {getSocialValue(social.label)}
                 </span>
               </motion.div>

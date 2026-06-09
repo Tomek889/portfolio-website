@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Download, ArrowRight } from "lucide-react";
+import cv from "../assets/resume/Tomasz_Styczen_CV.pdf";
 
 export default function Hero() {
   const containerVariants = {
@@ -73,10 +74,15 @@ export default function Hero() {
             <ArrowRight size={20} />
           </button>
 
-          <button className="px-8 py-3 border border-zinc-600 text-white rounded-lg font-semibold flex items-center gap-2 hover:border-accent transition-smooth hover:text-accent">
+          <a
+            href={cv}
+            target="_blank"
+            rel="noreferrer"
+            className="px-8 py-3 border border-zinc-600 text-white rounded-lg font-semibold flex items-center gap-2 hover:border-accent transition-smooth hover:text-accent"
+          >
             <Download size={20} />
-            Download CV
-          </button>
+            View CV
+          </a>
         </motion.div>
 
         <motion.div variants={itemVariants} className="mt-[6rem]">

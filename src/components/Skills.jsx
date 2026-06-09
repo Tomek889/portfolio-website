@@ -1,168 +1,50 @@
-import { useEffect, useRef } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import * as d3 from "d3";
+import { Network, List } from "lucide-react";
 
-const skillsData = [
-  { id: "React", category: "Frontend" },
-  { id: "Next.js", category: "Frontend" },
-  { id: "TypeScript", category: "Frontend" },
-  { id: "Tailwind CSS", category: "Frontend" },
-  { id: "Node.js", category: "Backend" },
-  { id: "Express", category: "Backend" },
-  { id: "NestJS", category: "Backend" },
-  { id: "Python", category: "Backend" },
-  { id: "PostgreSQL", category: "Database" },
-  { id: "MongoDB", category: "Database" },
-  { id: "Redis", category: "Database" },
-  { id: "Docker", category: "DevOps" },
-  { id: "AWS", category: "DevOps" },
-  { id: "CI/CD", category: "DevOps" },
-  { id: "API Design", category: "Backend" },
-  { id: "GraphQL", category: "Backend" },
-];
-
-const categoryColors = {
-  Frontend: "#38bdf8",
-  Backend: "#818cf8",
-  Database: "#34d399",
-  DevOps: "#f87171",
-};
-
-function SkillsGraph() {
-  const svgRef = useRef();
-
-  useEffect(() => {
-    if (!svgRef.current || skillsData.length === 0) return;
-
-    const width = svgRef.current.clientWidth;
-    const height = 500;
-
-    // Clear previous content
-    d3.select(svgRef.current).selectAll("*").remove();
-
-    const svg = d3
-      .select(svgRef.current)
-      .attr("width", width)
-      .attr("height", height);
-
-    // Create simulation
-    const nodes = skillsData.map((d) => ({
-      id: d.id,
-      category: d.category,
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: 0,
-      vy: 0,
-    }));
-
-    const simulation = d3
-      .forceSimulation(nodes)
-      .force("link", d3.forceLink().distance(80).links([]))
-      .force("charge", d3.forceManyBody().strength(-300))
-      .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("collision", d3.forceCollide().radius(40))
-      .alpha(0.8);
-
-    // Create circles
-    const circles = svg
-      .selectAll("circle")
-      .data(nodes)
-      .enter()
-      .append("circle")
-      .attr("r", 20)
-      .attr("fill", (d) => categoryColors[d.category])
-      .attr("opacity", 0.8)
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 2)
-      .style("cursor", "grab")
-      .call(
-        d3
-          .drag()
-          .on("start", dragStarted)
-          .on("drag", dragged)
-          .on("end", dragEnded),
-      );
-
-    // Create labels
-    const labels = svg
-      .selectAll("text")
-      .data(nodes)
-      .enter()
-      .append("text")
-      .attr("text-anchor", "middle")
-      .attr("dy", ".3em")
-      .attr("font-size", "11px")
-      .attr("font-weight", "600")
-      .attr("fill", "#000")
-      .attr("pointer-events", "none")
-      .text((d) => d.id);
-
-    function dragStarted(event, d) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-
-    function dragged(event, d) {
-      d.fx = event.x;
-      d.fy = event.y;
-    }
-
-    function dragEnded(event, d) {
-      if (!event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
-
-    simulation.on("tick", () => {
-      circles.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-
-      labels.attr("x", (d) => d.x).attr("y", (d) => d.y);
-    });
-
-    return () => simulation.stop();
-  }, []);
-
-  return (
-    <div className="w-full space-y-4">
-      <p className="text-sm text-zinc-400 text-center">
-        Drag nodes around to explore skills
-      </p>
-      <svg
-        ref={svgRef}
-        className="w-full border border-zinc-800 rounded-lg bg-zinc-900/30"
-      />
-    </div>
-  );
-}
+import SkillGraph from "./SkillGraph";
+import { nodes, links, techIcons } from "../data/skills";
 
 export default function Skills() {
+  const [viewMode, setViewMode] = useState("graph");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 800) {
+        setViewMode("list");
+      } else {
+        setViewMode("graph");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const skillsByCategory = links.reduce((acc, link) => {
+    const sourceId = typeof link.source === "object" ? link.source.id : link.source;
+    const targetId = typeof link.target === "object" ? link.target.id : link.target;
+
+    if (sourceId !== "Me" && sourceId !== "root") {
+      if (!acc[sourceId]) acc[sourceId] = [];
+      acc[sourceId].push(targetId);
+    }
+    return acc;
+  }, {});
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.2, delayChildren: 0.1 },
     },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
-
-  const categories = [
-    { name: "Frontend", color: "#38bdf8" },
-    { name: "Backend", color: "#818cf8" },
-    { name: "Database", color: "#34d399" },
-    { name: "DevOps", color: "#f87171" },
-  ];
 
   return (
     <section
@@ -170,36 +52,81 @@ export default function Skills() {
       className="min-h-screen flex items-center justify-center px-4 py-20"
     >
       <motion.div
-        className="max-w-6xl mx-auto w-full"
+        className="max-w-5xl mx-auto w-full"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        <motion.div variants={itemVariants} className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-2">Skills</h2>
-          <div className="line-accent w-16 h-1"></div>
-        </motion.div>
+        <motion.div 
+          variants={itemVariants} 
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+        >
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-2">Skills</h2>
+            <div className="line-accent w-16 h-1"></div>
+          </div>
 
-        <motion.div variants={itemVariants} className="mb-8">
-          <div className="flex flex-wrap gap-4 justify-center">
-            {categories.map((cat) => (
-              <div key={cat.name} className="flex items-center gap-2">
-                <div
-                  className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: cat.color }}
-                ></div>
-                <span className="text-sm text-zinc-300">{cat.name}</span>
-              </div>
-            ))}
+          <div className="inline-flex bg-zinc-900/80 p-1.5 rounded-full border border-zinc-800 shadow-sm">
+            <button
+              onClick={() => setViewMode("graph")}
+              className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                viewMode === "graph"
+                  ? "bg-zinc-800 text-white shadow-md border border-zinc-700"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              <Network size={16} />
+              <span>Interactive Graph</span>
+            </button>
+            <button
+              onClick={() => setViewMode("list")}
+              className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                viewMode === "list"
+                  ? "bg-zinc-800 text-white shadow-md border border-zinc-700"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              <List size={16} />
+              <span>Categorized List</span>
+            </button>
           </div>
         </motion.div>
 
         <motion.div
           variants={itemVariants}
-          className="bg-zinc-900/30 rounded-lg p-6 border border-zinc-800"
+          className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 p-6 min-h-[600px] flex items-start justify-center overflow-hidden transition-all duration-500 hover:border-zinc-700 group"
         >
-          <SkillsGraph />
+          {viewMode === "graph" ? (
+            <div className="w-full h-[600px] fade-in">
+              <SkillGraph nodes={nodes} links={links} />
+            </div>
+          ) : (
+            <div className="w-full h-full flex flex-col gap-6 fade-in py-2">
+              {Object.entries(skillsByCategory).map(([category, skills]) => (
+                <div key={category} className="border border-zinc-800/60 bg-zinc-800/20 rounded-lg p-5">
+                  <h3 className="text-sm font-mono text-zinc-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <span className="text-accent font-bold">▸</span>
+                    {category}
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {skills.map((skill) => {
+                      const Icon = techIcons[skill];
+                      return (
+                        <div
+                          key={skill}
+                          className="flex items-center gap-2 px-4 py-2 bg-zinc-900 text-zinc-200 text-sm rounded-md border border-zinc-700/80 hover:border-accent transition-smooth cursor-default shadow-sm"
+                        >
+                          {Icon && <Icon size={16} className="text-zinc-400" />}
+                          <span className="font-medium">{skill}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </motion.div>
       </motion.div>
     </section>

@@ -32,10 +32,10 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center px-4 py-20"
+      className="relative min-h-screen flex items-center justify-center px-4 py-20"
     >
       <motion.div
-        className="max-w-4xl mx-auto text-center"
+        className="max-w-4xl mx-auto w-full text-center flex flex-col items-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -48,7 +48,7 @@ export default function Hero() {
 
         <motion.h1
           variants={itemVariants}
-          className="text-5xl md:text-7xl font-bold mb-4 leading-tight whitespace-normal"
+          className="text-5xl md:text-7xl font-bold mb-4 leading-[1.3] md:leading-[1.38] whitespace-normal"
         >
           Hello, I'm <span className="text-accent">Tomasz Styczeń</span>
         </motion.h1>
@@ -79,10 +79,9 @@ export default function Hero() {
           </button>
         </motion.div>
 
-        {/* Scroll Indicator */}
         <motion.div
           variants={itemVariants}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-[10vh] left-1/2 -translate-x-1/2"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}

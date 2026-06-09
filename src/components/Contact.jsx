@@ -39,17 +39,17 @@ export default function Contact() {
     {
       icon: Mail,
       label: "Email",
-      url: "mailto:your.email@example.com",
+      url: "mailto:tomasz_styczen@wp.pl",
     },
     {
       icon: Github,
       label: "GitHub",
-      url: "https://github.com/yourusername",
+      url: "https://github.com/Tomek889",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      url: "https://linkedin.com/in/yourusername",
+      url: "https://www.linkedin.com/in/tomasz-stycze%C5%84-2473382b8",
     },
   ];
 

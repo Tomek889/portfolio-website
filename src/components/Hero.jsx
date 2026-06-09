@@ -32,7 +32,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-4 py-20"
+      className="relative min-h-screen flex items-center justify-center px-4 py-20 pt-28"
     >
       <motion.div
         className="max-w-4xl mx-auto w-full text-center flex flex-col items-center"
@@ -81,7 +81,7 @@ export default function Hero() {
 
         <motion.div
           variants={itemVariants}
-          className="absolute bottom-[10vh] left-1/2 -translate-x-1/2"
+          className="mt-[6rem]"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}

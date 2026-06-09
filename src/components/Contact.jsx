@@ -1,6 +1,15 @@
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin } from "lucide-react";
 
+const getSocialValue = (label) => {
+  switch (label) {
+    case 'Email': return 'tomasz_styczen@wp.pl';
+    case 'GitHub': return 'Tomek889';
+    case 'LinkedIn': return 'Tomasz Styczeń';
+    default: return '';
+  }
+};
+
 export default function Contact() {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -27,19 +36,16 @@ export default function Contact() {
       icon: Mail,
       label: "Email",
       url: "mailto:your.email@example.com",
-      color: "hover:text-red-400",
     },
     {
       icon: Github,
       label: "GitHub",
       url: "https://github.com/yourusername",
-      color: "hover:text-gray-300",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
       url: "https://linkedin.com/in/yourusername",
-      color: "hover:text-blue-400",
     },
   ];
 
@@ -74,21 +80,21 @@ export default function Contact() {
                 key={social.label}
                 href={social.url}
                 target={social.url.startsWith("mailto") ? "_self" : "_blank"}
-                rel={social.url.startsWith("mailto") ? "" : "noopener noreferrer"}
+                rel={
+                  social.url.startsWith("mailto") ? "" : "noopener noreferrer"
+                }
                 variants={itemVariants}
                 className="group flex flex-col items-center justify-center p-8 border border-zinc-800 rounded-lg bg-zinc-900/50 hover:border-accent hover:bg-zinc-900 transition-all duration-300 transform hover:scale-105"
               >
                 <Icon
                   size={48}
-                  className={`mb-4 text-accent transition-colors ${social.color}`}
+                  className="mb-4 text-accent group-hover:text-white transition-colors duration-300"
                 />
                 <h3 className="text-lg font-semibold text-white mb-2">
                   {social.label}
                 </h3>
                 <span className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors">
-                  {social.label === "Email"
-                    ? "your.email@example.com"
-                    : `@yourusername`}
+                    {getSocialValue(social.label)}
                 </span>
               </motion.a>
             );
@@ -100,7 +106,8 @@ export default function Contact() {
           className="mt-16 p-8 border border-zinc-800 rounded-lg bg-zinc-900/50 text-center"
         >
           <p className="text-zinc-300 mb-4">
-            Available for freelance projects, collaborations, and full-time opportunities.
+            Available for freelance projects, collaborations, and full-time
+            opportunities.
           </p>
           <p className="text-sm text-zinc-500">
             Let's talk about your next project!

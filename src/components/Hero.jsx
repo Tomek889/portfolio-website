@@ -48,7 +48,7 @@ export default function Hero() {
 
         <motion.h1
           variants={itemVariants}
-          className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+          className="text-5xl md:text-7xl font-bold mb-4 leading-tight whitespace-normal"
         >
           Hello, I'm <span className="text-accent">Tomasz Styczeń</span>
         </motion.h1>
@@ -67,7 +67,7 @@ export default function Hero() {
         >
           <button
             onClick={() => scrollToSection("projects")}
-            className="px-8 py-3 bg-accent text-zinc-950 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-smooth glow-blue"
+            className="px-8 py-3 bg-accent text-white rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-smooth glow-blue"
           >
             View My Work
             <ArrowRight size={20} />

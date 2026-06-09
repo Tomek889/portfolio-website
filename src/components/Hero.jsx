@@ -57,8 +57,8 @@ export default function Hero() {
           variants={itemVariants}
           className="text-xl md:text-2xl text-zinc-300 mb-8 max-w-2xl mx-auto leading-relaxed"
         >
-          I build scalable web applications with efficient architecture, robust
-          backends, and intuitive interfaces.
+          I create things I wish existed and use technology to solve real-world
+          problems.
         </motion.p>
 
         <motion.div
@@ -79,10 +79,7 @@ export default function Hero() {
           </button>
         </motion.div>
 
-        <motion.div
-          variants={itemVariants}
-          className="mt-[6rem]"
-        >
+        <motion.div variants={itemVariants} className="mt-[6rem]">
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}

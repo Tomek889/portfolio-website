@@ -23,7 +23,7 @@ export default function App() {
       </div>
       <footer className="w-full border-t border-zinc-800/80 mt-auto py-8 text-center bg-zinc-950/50 backdrop-blur-sm">
         <p className="text-sm text-zinc-500">
-          © {getYear()} Tomasz Styczeń. Built with React, Tailwind CSS & D3.js
+          © {getYear()} Tomasz Styczeń. Made with ❤️
         </p>
       </footer>
     </div>

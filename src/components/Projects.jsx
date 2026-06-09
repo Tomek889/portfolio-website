@@ -3,54 +3,65 @@ import { Github, ExternalLink } from "lucide-react";
 
 const projects = [
   {
-    title: "E-Commerce Platform",
+    title: "StudyNest",
     description:
-      "Full-featured e-commerce platform with secure payment processing and inventory management.",
-    architecture:
-      "REST API built with Node.js/Express using JWT authentication, PostgreSQL database with Prisma ORM, responsive Next.js frontend with Tailwind CSS styling.",
+      "An AI-powered study assistant that helps students learn faster and retain more by turning study materials into interactive tools.",
+    highlights: [
+      "Flashcards generated from PDFs or text with a 3D flip UI",
+      "Balanced quizzes with multiple-choice and open-ended questions",
+      "Summaries with the most important ideas in a clean format",
+      "Feynman-style practice with AI feedback and follow-up questions",
+      "Voice recording with Web Audio visualization and transcription",
+    ],
     technologies: [
       "Next.js",
-      "Node.js",
-      "PostgreSQL",
-      "Stripe",
-      "Docker",
-      "AWS",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "OpenAI",
+      "Web Audio API",
     ],
-    image:
-      "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600&h=400&fit=crop",
-    github: "#",
-    live: "#",
+    github: "https://github.com/Tomek889/studying-app",
+    live: "https://studying-app-smoky.vercel.app/",
   },
   {
-    title: "Task Management App",
+    title: "Diary App",
     description:
-      "Collaborative project management tool with real-time synchronization and team features.",
-    architecture:
-      "Real-time data sync using WebSockets, OAuth authentication, Redis caching for performance optimization, MongoDB for flexible data storage.",
-    technologies: ["React", "Socket.io", "MongoDB", "Redis", "Express", "JWT"],
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
-    github: "#",
-    live: "#",
-  },
-  {
-    title: "Analytics Dashboard",
-    description:
-      "Advanced data visualization dashboard with real-time analytics and comprehensive reporting.",
-    architecture:
-      "Microservices architecture with dedicated data processing service, D3.js for interactive visualizations, GraphQL API for efficient data fetching and aggregation.",
+      "A full-stack journaling application for tracking thoughts, tasks, moods, and personal progress.",
+    highlights: [
+      "Daily journal entries with gratitude and reflections",
+      "Task tracking and completion management",
+      "Mood, energy, and health logging",
+      "Statistics dashboard with progress visualization",
+      "Calendar view and PDF export",
+    ],
     technologies: [
       "React",
-      "D3.js",
-      "PostgreSQL",
+      "React Router",
+      "Vite",
+      "Express.js",
       "Node.js",
-      "GraphQL",
-      "Docker",
+      "PostgreSQL",
+      "@react-pdf/renderer",
+      "CSS",
     ],
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-    github: "#",
-    live: "#",
+    github: "https://github.com/Tomek889/diary-app",
+    live: "https://diary-app-jet.vercel.app/",
+  },
+  {
+    title: "Battleship",
+    description:
+      "A browser-based implementation of the classic Battleship game featuring player vs computer gameplay and interactive ship combat.",
+    highlights: [
+      "10x10 game board with ship placement system",
+      "Player versus computer gameplay",
+      "Turn-based attack mechanics and win detection",
+      "Object-oriented architecture using JavaScript classes",
+      "Built without external libraries or frameworks",
+    ],
+    technologies: ["JavaScript", "HTML", "CSS"],
+    github: "https://github.com/Tomek889/battleship",
+    live: "https://tomek889.github.io/battleship/",
   },
 ];
 
@@ -99,30 +110,27 @@ export default function Projects() {
               variants={itemVariants}
               className="border border-zinc-800 rounded-lg overflow-hidden bg-zinc-900/50 hover:border-zinc-700 transition-smooth group"
             >
-              <div className="relative h-64 overflow-hidden bg-zinc-800">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-
               <div className="p-6 md:p-8">
                 <h3 className="text-2xl font-semibold mb-3 text-white">
                   {project.title}
                 </h3>
 
-                <p className="text-zinc-300 mb-4 text-base">
+                <p className="text-zinc-300 mb-5 text-base leading-relaxed">
                   {project.description}
                 </p>
 
-                <div className="mb-6 p-4 border-l-2 border-accent bg-zinc-800/30 rounded">
-                  <p className="text-sm text-zinc-400 font-mono">
-                    <span className="text-accent font-semibold">
-                      Architecture:{" "}
-                    </span>
-                    {project.architecture}
-                  </p>
+                <div className="mb-6">
+                  <h4 className="text-sm font-mono text-zinc-400 uppercase tracking-widest mb-3">
+                    Highlights
+                  </h4>
+                  <ul className="space-y-2 text-zinc-300">
+                    {project.highlights.map((point) => (
+                      <li key={point} className="flex items-start gap-3">
+                        <span className="text-accent font-bold">▸</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
                 <div className="flex flex-wrap gap-2 mb-6">
@@ -137,20 +145,29 @@ export default function Projects() {
                 </div>
 
                 <div className="flex gap-4">
-                  <a
-                    href={project.github}
-                    className="flex items-center gap-2 text-zinc-300 hover:text-accent transition-smooth"
-                  >
-                    <Github size={18} />
-                    <span>GitHub</span>
-                  </a>
-                  <a
-                    href={project.live}
-                    className="flex items-center gap-2 text-zinc-300 hover:text-accent transition-smooth"
-                  >
-                    <ExternalLink size={18} />
-                    <span>Live Demo</span>
-                  </a>
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-2 text-zinc-300 hover:text-accent transition-smooth"
+                    >
+                      <Github size={18} />
+                      <span>GitHub</span>
+                    </a>
+                  )}
+
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-2 text-zinc-300 hover:text-accent transition-smooth"
+                    >
+                      <ExternalLink size={18} />
+                      <span>Live Demo</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>

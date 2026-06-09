@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
 
+import studynest from "../assets/projects/studynest.png";
+import diaryapp from "../assets/projects/diaryapp.png";
+import battleship from "../assets/projects/battleship.png";
+
 const projects = [
   {
     title: "StudyNest",
@@ -23,6 +27,7 @@ const projects = [
     ],
     github: "https://github.com/Tomek889/studying-app",
     live: "https://studying-app-smoky.vercel.app/",
+    image: studynest,
   },
   {
     title: "Diary App",
@@ -46,7 +51,8 @@ const projects = [
       "CSS",
     ],
     github: "https://github.com/Tomek889/diary-app",
-    live: "https://diary-app-jet.vercel.app/",
+    live: "https://diaryapp.bieda.it/",
+    image: diaryapp,
   },
   {
     title: "Battleship",
@@ -62,6 +68,7 @@ const projects = [
     technologies: ["JavaScript", "HTML", "CSS"],
     github: "https://github.com/Tomek889/battleship",
     live: "https://tomek889.github.io/battleship/",
+    image: battleship,
   },
 ];
 
@@ -110,6 +117,15 @@ export default function Projects() {
               variants={itemVariants}
               className="border border-zinc-800 rounded-lg overflow-hidden bg-zinc-900/50 hover:border-zinc-700 transition-smooth group"
             >
+              <div className="relative h-[300px] overflow-hidden bg-zinc-800">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent" />
+              </div>
+
               <div className="p-6 md:p-8">
                 <h3 className="text-2xl font-semibold mb-3 text-white">
                   {project.title}

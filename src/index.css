@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: #ffffff;
+  background-color: #09090b;
+  overflow-x: hidden;
+}
+
+/* Background Patterns */
+.bg-dots {
+  background-color: #09090b;
+  background-image: radial-gradient(#27272a 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-grid-glow {
+  background-color: #09090b;
+  background-image:
+    linear-gradient(to right, rgba(39, 39, 42, 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(39, 39, 42, 0.3) 1px, transparent 1px),
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(56, 189, 248, 0.08),
+      transparent 50%
+    );
+  background-size:
+    40px 40px,
+    40px 40px,
+    100% 100%;
+  background-attachment: fixed;
+}
+
+/* Global Utilities */
+.text-accent {
+  color: #38bdf8;
+}
+
+.border-accent {
+  border-color: #38bdf8;
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line-accent {
+  background: linear-gradient(to right, #38bdf8, #06b6d4, transparent);
+  height: 1px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}

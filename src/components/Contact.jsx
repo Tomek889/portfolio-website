@@ -1,0 +1,112 @@
+import { motion } from "framer-motion";
+import { Mail, Github, Linkedin } from "lucide-react";
+
+export default function Contact() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const socialLinks = [
+    {
+      icon: Mail,
+      label: "Email",
+      url: "mailto:your.email@example.com",
+      color: "hover:text-red-400",
+    },
+    {
+      icon: Github,
+      label: "GitHub",
+      url: "https://github.com/yourusername",
+      color: "hover:text-gray-300",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      url: "https://linkedin.com/in/yourusername",
+      color: "hover:text-blue-400",
+    },
+  ];
+
+  return (
+    <section
+      id="contact"
+      className="min-h-screen flex items-center justify-center px-4 py-20"
+    >
+      <motion.div
+        className="max-w-3xl mx-auto w-full"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <motion.div variants={itemVariants} className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-2">Let's Connect</h2>
+          <div className="line-accent mx-auto w-16 h-1"></div>
+          <p className="text-zinc-400 mt-4">
+            Interested in collaborating? Reach out to me!
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+        >
+          {socialLinks.map((social) => {
+            const Icon = social.icon;
+            return (
+              <motion.a
+                key={social.label}
+                href={social.url}
+                target={social.url.startsWith("mailto") ? "_self" : "_blank"}
+                rel={social.url.startsWith("mailto") ? "" : "noopener noreferrer"}
+                variants={itemVariants}
+                className="group flex flex-col items-center justify-center p-8 border border-zinc-800 rounded-lg bg-zinc-900/50 hover:border-accent hover:bg-zinc-900 transition-all duration-300 transform hover:scale-105"
+              >
+                <Icon
+                  size={48}
+                  className={`mb-4 text-accent transition-colors ${social.color}`}
+                />
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  {social.label}
+                </h3>
+                <span className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors">
+                  {social.label === "Email"
+                    ? "your.email@example.com"
+                    : `@yourusername`}
+                </span>
+              </motion.a>
+            );
+          })}
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          className="mt-16 p-8 border border-zinc-800 rounded-lg bg-zinc-900/50 text-center"
+        >
+          <p className="text-zinc-300 mb-4">
+            Available for freelance projects, collaborations, and full-time opportunities.
+          </p>
+          <p className="text-sm text-zinc-500">
+            Let's talk about your next project!
+          </p>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}

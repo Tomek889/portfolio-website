@@ -7,7 +7,7 @@ import battleship from "../assets/projects/battleship.png";
 
 const projects = [
   {
-    title: "StudyNest",
+    title: "StudyNest App",
     description:
       "An AI-powered study assistant that helps students learn faster and retain more by turning study materials into interactive tools.",
     highlights: [
@@ -55,7 +55,7 @@ const projects = [
     image: diaryapp,
   },
   {
-    title: "Battleship",
+    title: "Battleship Game",
     description:
       "A browser-based implementation of the classic Battleship game featuring player vs computer gameplay and interactive ship combat.",
     highlights: [
